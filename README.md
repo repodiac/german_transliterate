@@ -6,9 +6,14 @@ However, it is particularly useful for Text-To-Speech (TTS) preprocessing (both 
 
 Is has been successfully applied to preprocessing with [Mozilla TTS](https://github.com/mozilla/TTS) in combination with `espeak-ng` phonemes as input data to both training and inference pipeline.
 
-## License
+## License and Attribution
 
-Licensed under Apache 2.0 license - if you think this software is useful and is used elsewhere, any pointer to this work or github repo are highly welcomed!
+This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+To provide **attribution or cite this work** please use the following text snippet:
+```
+german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodiac for updates and further information
+```
 
 ## Version History
 
