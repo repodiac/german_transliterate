@@ -395,7 +395,7 @@ class RegExConfig(GTConfig):
                                        '\\bbill\\b', '\\bbill\.\\b', '\\bbillion(en){0,1}\\b', '\\btausend\\b']
 
             self.DETECT_ABBREVIATION = re.compile(
-                '(^|(?<=[\.!?;:\-\s,]))([A-ZÄÖÜ]{2,}|([A-ZÄÖÜ]\.){2,})($|(?=[\.!?;:\-\s,]+))')
+                '(^|(?<=[\.!?;:\-\s,\(\[\{]))([A-ZÄÖÜ]{2,}|([A-ZÄÖÜ]\.){2,})($|(?=[\.!?;:\-\s,\)\]\}]+))')
             self.DETECT_WEEKDAY = re.compile('\\b(' + '|'.join(self.abbreviation_config.WEEKDAY.keys()) + ')\\b')
             self.DETECT_MONTH = re.compile('\\b(' + '|'.join(self.abbreviation_config.MONTH.keys()) + ')\\b')
             self.DETECT_TIME_OF_DAY = re.compile(
