@@ -17,6 +17,7 @@ german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodia
 
 ## Version History
 
+* `0.1.1` - added command-line interface for default usage (no phoneme encoding and experimental stuff left out)
 * `release 0.1` - initial release of the software, still a lot of `ToDo`s and some more experimental features (see documentation); also exception handling could be improved
 
 # Installation/Setup
@@ -37,6 +38,8 @@ Setup:
 
 ## Example Usage
 
+In Python code or as library:
+
 ```
 from german_transliterate.core import GermanTransliterate
 
@@ -53,6 +56,12 @@ print('TRANSLITERATION with phonemic encodings:',
 # use none or your own for other purposes than phonemic encoding and do not use 'spoken_symbol' or 'acronym_phoneme'
 print('TRANSLITERATION (default):',
       GermanTransliterate(transliterate_ops=list(ops-{'spoken_symbol', 'acronym_phoneme'})).transliterate(text), '\n')
+```
+
+**NEW** From command-line (in the shell):
+
+```
+python core.py '1, 2, 3 - alles ist dabei'
 ```
 
 ## Input Parameters
