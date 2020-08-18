@@ -1105,3 +1105,16 @@ class GermanTransliterate:
                   'of class', type(self).__name__, '- see exception for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+
+
+if __name__ == "__main__":
+    # execute default usage if run as script
+	if len(sys.argv) < 2:
+		print('ERROR: No text given')
+		sys.exit(-1)
+		
+	ops = {'accent_peculiarity', 'amount_money', 'date', 'timestamp', 'time_of_day', 'ordinal', 'special'}
+        
+	text = sys.argv[1]
+	normalized_text = GermanTransliterate(transliterate_ops=ops).transliterate(text)
+	print(normalized_text)
