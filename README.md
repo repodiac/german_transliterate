@@ -24,15 +24,13 @@ german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodia
 
 It has currently only one external dependency, [num2words](https://pypi.org/project/num2words/). All dependencies are to be found in `requirements.txt` and included in `setup.py` as well, at the moment.
 
-Installation is currently done via **local** package installation only:
+Installation is eays using `pip` and built-in `git` package installation based on `setup.py`:
 
-* go to the directory where you cloned this repo (via `git clone https://github.com/repodiac/german_transliterate`)
-* type `pip install -e .`
+* `pip install git+https://github.com/repodiac/german_transliterate`
 
 Setup:
 
 - It should install and behave (`import german_transliterate.core`) to your current Python environment as any other `pip` package (in case, create a virtual environment with `virtualenv` or `conda` before).
-- Afaik, any updates (`git pull`) are automatically active -- as opposed to an ordinary, external pip package -- since pip only installs a link to the file(s) in the git repo
 
 # Documentation
 
