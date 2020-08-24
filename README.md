@@ -24,7 +24,7 @@ german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodia
 
 It has currently only one external dependency, [num2words](https://pypi.org/project/num2words/). All dependencies are to be found in `requirements.txt` and included in `setup.py` as well, at the moment.
 
-Installation is eays using `pip` and built-in `git` package installation based on `setup.py`:
+Installation is easy using `pip` and built-in `git` package installation based on `setup.py`:
 
 * `pip install git+https://github.com/repodiac/german_transliterate`
 
@@ -85,7 +85,7 @@ The parameters used for the config parameter `transliterate_ops` are as follows:
 * `month` (*experimental*), transliterates abbreviations for months, e.g. `Jan` or `Dez` -- **currently this is rather error-prone (many false-positives)**
 * `time_of_day` transliterates time of day, e.g. 13:15h
 * `ordinal` transliterates ordinal numbers, e.g. `2.` into `zweite` (tries to find a tradeoff for correct case suffix, i.e. `zweiten` or `zweitem`)
-* `special` transliterates edge cases and special terms, e.g. `8 / 10` into `acht von zehn`
+* `special` transliterates edge cases and special terms, e.g. `8/10` into `acht von zehn`
 * `math_symbol` (*experimental*), transliterates a small selection of math symbols, e.g. `plus`, `minus` etc. (also here applies: can have a lot of false-positives, so use with care)
 * `spoken_symbol` allows to transliterate brackets or citation marks into spoken language, e.g. '( text )' into `-- in klammern -- text --` (if `sep_abbreviation` is set to ' -- '), mainly useful for TTS tasks
 
