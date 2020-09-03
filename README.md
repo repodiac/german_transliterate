@@ -17,6 +17,11 @@ german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodia
 
 ## Version History
 
+* `0.1.2` - removed the following ops from the list of default ops, since (as mentioned in the documentation below) they are highly error-prone (many false-positives). You can still use them via
+explicitly adding them to the `transliterate_ops=[...]` list. The ops removed are:
+	* `month`
+	* `weekday`
+	* `math_symbol`
 * `0.1.1` - added command-line interface for default usage (no phoneme encoding and experimental stuff left out)
 * `release 0.1` - initial release of the software, still a lot of `ToDo`s and some more experimental features (see documentation); also exception handling could be improved
 

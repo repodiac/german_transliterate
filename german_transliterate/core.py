@@ -432,8 +432,7 @@ class GermanTransliterate:
 
     def __init__(self,
                  transliterate_ops=['acronym_phoneme', 'accent_peculiarity', 'amount_money', 'date', 'timestamp',
-                                    'weekday', 'month', 'time_of_day', 'ordinal', 'special', 'math_symbol',
-                                    'spoken_symbol'],
+                                    'time_of_day', 'ordinal', 'special', 'spoken_symbol'],
                  replace={'-': ' '},
                  sep_abbreviation=' ',
                  make_lowercase=True
