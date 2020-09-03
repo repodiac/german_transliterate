@@ -416,9 +416,10 @@ class RegExConfig(GTConfig):
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
 
 class GermanTransliterate:
@@ -485,9 +486,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _acronym_phoneme_op(self, text):
         """
@@ -513,9 +515,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _accent_peculiarity_op(self, text):
         """
@@ -533,9 +536,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _amount_money_op(self, text):
         """
@@ -568,9 +572,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _date_op(self, text):
         """
@@ -603,9 +608,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _timestamp_op(self, text):
         """
@@ -649,9 +655,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _timeofday_op(self, text):
         """
@@ -675,9 +682,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _weekday_op(self, word):
         """
@@ -695,9 +703,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _month_op(self, word):
         """
@@ -715,9 +724,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _ordinal_op(self, word, idx):
         """
@@ -742,9 +752,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _special_op(self, word):
         """
@@ -770,9 +781,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _math_symbol_op(self, word):
         """
@@ -812,9 +824,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _spoken_symbol_op(self, word, idx, split_text):
         """
@@ -844,9 +857,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _misc_abbreviation_op(self, word):
         """
@@ -867,9 +881,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _number_unit_op(self, word, idx, cleaned_words):
         """
@@ -960,9 +975,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def transliterate(self, text):
         """
@@ -1062,9 +1078,10 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
     def _transliterate_number(self, number: str) -> str:
         """
@@ -1101,19 +1118,20 @@ class GermanTransliterate:
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
-                  'of class', type(self).__name__, '- see exception for details',
+                  'of class', type(self).__name__, '- see Traceback for details',
                   file=sys.stderr)
             print('', file=sys.stderr)
+            raise e
 
 
 if __name__ == "__main__":
     # execute default usage if run as script
-	if len(sys.argv) < 2:
-		print('ERROR: No text given')
-		sys.exit(-1)
-		
-	ops = {'accent_peculiarity', 'amount_money', 'date', 'timestamp', 'time_of_day', 'ordinal', 'special'}
-        
-	text = sys.argv[1]
-	normalized_text = GermanTransliterate(transliterate_ops=ops).transliterate(text)
-	print(normalized_text)
+    if len(sys.argv) < 2:
+        print('ERROR: No text given')
+        sys.exit(-1)
+
+    ops = {'accent_peculiarity', 'amount_money', 'date', 'timestamp', 'time_of_day', 'ordinal', 'special'}
+
+    text = sys.argv[1]
+    normalized_text = GermanTransliterate(transliterate_ops=ops).transliterate(text)
+    print(normalized_text)
