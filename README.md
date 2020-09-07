@@ -17,6 +17,7 @@ german_transliterate, Copyright 2020 by repodiac, see https://github.com/repodia
 
 ## Version History
 
+* `0.1.3` - some bugfixes in various ops: `weekday`, `month`, `amount_money` and acronyms, also some minor stuff fixed here and there (**update highly recommended**)
 * `0.1.2` - removed the following ops from the list of default ops, since (as mentioned in the documentation below) they are highly error-prone (many false-positives). You can still use them via
 explicitly adding them to the `transliterate_ops=[...]` list. The ops removed are:
 	* `month`
