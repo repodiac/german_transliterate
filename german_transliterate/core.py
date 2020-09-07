@@ -217,6 +217,12 @@ class AbbreviationConfig(GTConfig):
         'incl': 'inklusive',
         'exkl': 'exklusive',
         'excl': 'exklusive',
+        'i.o': 'in ordnung',
+        'z.t': 'zum teil',
+        'pr': 'pro',
+        'ihv': 'in höhe von',
+        'i.h.v': 'in höhe von',
+        'vglw': 'vergleichsweise'
     }
 
     TIME = {
@@ -237,7 +243,7 @@ class AbbreviationConfig(GTConfig):
         'do': 'donnerstag',
         'fr': 'freitag',
         'sa': 'samstag',
-        'so': 'sonntag',
+        'so.': 'sonntag',
     }
 
     MONTH = {
@@ -254,7 +260,7 @@ class AbbreviationConfig(GTConfig):
         'oktober': 'oktober',
         'november': 'november',
         'dezember': 'dezember',
-        'jan': 'januar',
+        'jan.': 'januar',
         'jän': 'jänner',
         'feb': 'februar',
         'mrz': 'märz',
@@ -316,9 +322,11 @@ class AbbreviationConfig(GTConfig):
         '−': ' minus ',
         '/': ' geteilt durch ',
         '\\': ' modulo ',
+        '**': ' hoch ',
         '*': ' mal ',
         '×': ' mal ',
         'x': ' mal ',
+        '^': ' hoch ',
         '>=': ' größer gleich ',
         '≥': ' größer gleich ',
         '<=': ' größer gleich ',
@@ -472,17 +480,50 @@ class GermanTransliterate:
 
             # prepare and configure static strings with regular expressions (depending on input config parameters)
             escaped_cursym = [re.escape(it) for it in self.abbreviation_config.CURRENCY_SYMBOL.keys()]
-            self.rstring_cursym_escaped = '|'.join(escaped_cursym).replace('_', self.generic_config.SEP_MASK)
-            self.rstring_curmagn = '|'.join(self.regex.CURRENCY_MAGNITUDE)
-            self.regex.DETECT_CURRENCY_SYMBOL = re.compile(self.rstring_cursym_escaped)
-            self.regex.DETECT_CURRENCY_MAGNITUDE = re.compile(self.rstring_curmagn)
+            rstring_cursym_escaped = '|'.join(escaped_cursym).replace('_', self.generic_config.SEP_MASK)
+            rstring_curmagn = '|'.join(self.regex.CURRENCY_MAGNITUDE)
+            self.regex.DETECT_CURRENCY_SYMBOL = re.compile(rstring_cursym_escaped)
+            self.regex.DETECT_CURRENCY_MAGNITUDE = re.compile(rstring_curmagn)
 
-            self.regex.DETECT_CURRENCY = re.compile( \
-                '(^|(?<=[\.!?;:\-\(\)\[\]\s]))(([\+\-]{0,1}\d+[\d\.,]*\s*('
-                + self.rstring_curmagn + '){0,1}\s*' \
-                                         '(' + self.rstring_cursym_escaped + '))|' \
-                                                                             '((' + self.rstring_cursym_escaped + ')\s*[\+\-]{0,1}\d+[\d\.,]*\s*(' + self.rstring_curmagn + '){0,1})|' \
-                                                                                                                                                                            '(' + self.rstring_cursym_escaped + '))($|(?=[\.!?;:\-\(\)\[\]\s]+))')
+            cur_str = '(^|(?<=[\.!?;:\-\(\)\[\]\s]))(([\+\-]{0,1}\d+[\d\.,]*\s*(' \
+                        + rstring_curmagn + '){0,1}\s*' + '(' \
+                        + rstring_cursym_escaped + '))|' + '((' \
+                        + rstring_cursym_escaped + ')\s*[\+\-]{0,1}\d+[\d\.,]*\s*(' \
+                        + rstring_curmagn + '){0,1})|' + '(' \
+                        + rstring_cursym_escaped \
+                        + '))($|(?=[\.!?;:\-\(\)\[\]\s]+))'
+
+            self.regex.DETECT_CURRENCY = re.compile(cur_str)
+
+        except Exception as e:
+            print('', file=sys.stderr)
+            print('*** An exception occurred in section', sys._getframe().f_code.co_name,
+                  'of class', type(self).__name__, '- see Traceback for details',
+                  file=sys.stderr)
+            print('', file=sys.stderr)
+            raise e
+
+    def _mask_acronym(self, text):
+        """
+        mask between each letter of an acronym with separator self.generic_config.SEP_MASK
+        in order to be able to find/process those acronyms later on
+
+        :param text: text to be scanned for acronyms
+        :return: processed text
+        """
+
+        try:
+            abbr_expanded = []
+            for abbr in self.regex.DETECT_ABBREVIATION.finditer(text):
+                if abbr.group(0) not in self.acronym_phoneme_config.EXCLUDE:
+                    abbr_expanded.append(
+                        (abbr.group(0), self.generic_config.SEP_MASK.join([c for c in
+                            abbr.group(0).replace('.', '')
+                        ])))
+            for m in abbr_expanded:
+                text = text.replace(m[0], m[1], 1)
+
+            return text
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
@@ -551,22 +592,35 @@ class GermanTransliterate:
         try:
             diff_len = 0
             for mc in self.regex.DETECT_CURRENCY.finditer(text):
-                m_symbol = self.regex.DETECT_CURRENCY_SYMBOL.search(mc.group(0))
-                m_magnitude = self.regex.DETECT_CURRENCY_MAGNITUDE.search(mc.group(0))
-                m_number = self.regex.DETECT_NUMBER.search(mc.group(0))
+
+                match_currency = self._acronym_phoneme_op(mc.group(0))
+                mc_end = mc.end()
+
+                m_symbol = self.regex.DETECT_CURRENCY_SYMBOL.search(match_currency)
+                m_magnitude = self.regex.DETECT_CURRENCY_MAGNITUDE.search(match_currency)
+                m_number = self.regex.DETECT_NUMBER.search(match_currency)
 
                 number = m_number.group(0) if m_number else ''
                 if not m_magnitude and ',' in number:
-                    number = number.replace(',', ' ' + self.abbreviation_config.CURRENCY_SYMBOL[
-                        m_symbol.group(0).replace(self.generic_config.SEP_MASK, '_')] + ' ')
+                    cur_symbol = self.abbreviation_config.CURRENCY_SYMBOL[
+                                                        m_symbol.group(0).replace(self.generic_config.SEP_MASK, '_')]
+                    number = number.replace(',', ' ' + cur_symbol + ' ')
+                    dec_start = number.rfind(' ' + cur_symbol)+len(cur_symbol)+2
+                    decimals = number[dec_start:]
+                    # invariant: ...,00 {currency_symbol}
+                    if int(decimals) == 0:
+                        number = number[:dec_start]
+                    # edge case: fractions have more than two digits
+                    elif len(decimals) > 2:
+                        number = number[:dec_start] + ' ' + decimals[0:2] + ' ' + ' '.join(decimals[2:])
                     rearranged_currency_term = number
                 else:
                     rearranged_currency_term = number + ' ' if m_number else ''
                     rearranged_currency_term += m_magnitude.group(0) + ' ' if m_magnitude else ''
                     rearranged_currency_term += self.abbreviation_config.CURRENCY_SYMBOL[
                         m_symbol.group(0).replace(self.generic_config.SEP_MASK, '_')]
-                text = text[:mc.start() + diff_len] + rearranged_currency_term + text[mc.end() + diff_len:]
-                diff_len = len(rearranged_currency_term) - (mc.end() - (mc.start() + diff_len))
+                text = text[:mc.start() + diff_len] + rearranged_currency_term + text[mc_end + diff_len:]
+                diff_len = len(rearranged_currency_term) - (mc_end - (mc.start() + diff_len))
 
             return text
         except Exception as e:
@@ -694,12 +748,21 @@ class GermanTransliterate:
         :param word:
         :return:
         """
-        try:
-            if self.regex.DETECT_WEEKDAY.match(word):
-                if word.replace('.', '') in self.abbreviation_config.WEEKDAY:
-                    word = self.abbreviation_config.WEEKDAY[word.replace('.', '')]  # TODO: replace every aux char!
 
-            return word
+        try:
+            ms = self.regex.DETECT_WEEKDAY.finditer(word)
+            offset = 0
+            for m in ms:
+                _word = word[m.start() + offset:m.end() + offset].replace('.', '')
+                if _word in self.abbreviation_config.WEEKDAY:
+                    word = word[:m.start() + offset] + self.abbreviation_config.WEEKDAY[_word] + word[m.end() + offset:]
+                    offset += len(self.abbreviation_config.WEEKDAY[_word]) - (m.end() - m.start())
+
+            if offset > 0:
+                return word.replace('.', '')
+            else:
+                return word
+
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
@@ -717,10 +780,19 @@ class GermanTransliterate:
         """
 
         try:
-            if self.regex.DETECT_MONTH.match(word):
-                word = self.abbreviation_config.MONTH[word.replace('.', '')]
+            ms = self.regex.DETECT_MONTH.finditer(word)
+            offset = 0
+            for m in ms:
+                _word = word[m.start() + offset:m.end() + offset].replace('.', '')
+                if _word in self.abbreviation_config.MONTH:
+                    word = word[:m.start() + offset] + self.abbreviation_config.MONTH[_word] + word[m.end() + offset:]
+                    offset += len(self.abbreviation_config.MONTH[_word]) - (m.end() - m.start())
 
-            return word
+            if offset > 0:
+                return word.replace('.', '')
+            else:
+                return word
+
         except Exception as e:
             print('', file=sys.stderr)
             print('*** An exception occurred in section', sys._getframe().f_code.co_name,
@@ -811,14 +883,14 @@ class GermanTransliterate:
                             continue
 
                     word = word.replace(pat, repl, 1)
-            ws = []
-            for w in word.split(' '):
-                if self.regex.DETECT_NUMBER.match(w):
-                    ws.append(self._transliterate_number(w))
-                else:
-                    ws.append(w)
-            if ws:
-                word = ' '.join(ws)
+            #ws = []
+            #for w in word.split(' '):
+            #    if self.regex.DETECT_NUMBER.match(w):
+            #        ws.append(self._transliterate_number(w))
+            #    else:
+            #        ws.append(w)
+            #if ws:
+            #    word = ' '.join(ws)
 
             return word
         except Exception as e:
@@ -994,8 +1066,12 @@ class GermanTransliterate:
         # First: do replacing and normalizing (transliterating) on the full text
 
         try:
+
+            text = self._mask_acronym(text)
             if 'acronym_phoneme' in self.transliterate_ops:
                 text = self._acronym_phoneme_op(text)
+            else:
+                self.sep_abbreviation = ''
 
             # MAKE LOWERCASE (only AFTER acronym processing!)
             if self.make_lowercase:

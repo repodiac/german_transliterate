@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
    name='german_transliterate',
-   version='0.1.2',
+   version='0.1.3',
    author='repodiac',
    author_email='spamornot@gmx.net',
    packages=['german_transliterate'],
