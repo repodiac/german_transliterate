@@ -883,14 +883,6 @@ class GermanTransliterate:
                             continue
 
                     word = word.replace(pat, repl, 1)
-            #ws = []
-            #for w in word.split(' '):
-            #    if self.regex.DETECT_NUMBER.match(w):
-            #        ws.append(self._transliterate_number(w))
-            #    else:
-            #        ws.append(w)
-            #if ws:
-            #    word = ' '.join(ws)
 
             return word
         except Exception as e:
@@ -1070,8 +1062,6 @@ class GermanTransliterate:
             text = self._mask_acronym(text)
             if 'acronym_phoneme' in self.transliterate_ops:
                 text = self._acronym_phoneme_op(text)
-            else:
-                self.sep_abbreviation = ''
 
             # MAKE LOWERCASE (only AFTER acronym processing!)
             if self.make_lowercase:
