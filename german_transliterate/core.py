@@ -1190,13 +1190,6 @@ class GermanTransliterate:
             raise e
 
 
-ops = {'accent_peculiarity', 'amount_money', 'date', 'timestamp', 'time_of_day', 'ordinal', 'special'}
-
-text = ' zum 1. mal, zum 2. und verkauft!'
-normalized_text = GermanTransliterate(transliterate_ops=ops).transliterate(text)
-print(normalized_text)
-sys.exit(0)
-
 if __name__ == "__main__":
     # execute default usage if run as script
     if len(sys.argv) < 2:
