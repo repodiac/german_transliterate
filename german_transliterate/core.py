@@ -801,7 +801,7 @@ class GermanTransliterate:
             print('', file=sys.stderr)
             raise e
 
-    def _ordinal_op(self, word, idx):
+    def _ordinal_op(self, word, idx, split_text, cleaned):
         """
         TRANSLITERATE ORDINAL NUMBER (uses also library num2words)
 
@@ -1106,7 +1106,7 @@ class GermanTransliterate:
 
                     # ORDINAL NUMBERS
                     elif tr == 'ordinal':
-                        word = self._ordinal_op(word, idx)
+                        word = self._ordinal_op(word, idx, split_text, cleaned_words)
 
                     # SPECIAL TERMS or CHARACTERS
                     # TODO: because of the kind of split, only statements/terms with a single word
@@ -1189,6 +1189,13 @@ class GermanTransliterate:
             print('', file=sys.stderr)
             raise e
 
+
+ops = {'accent_peculiarity', 'amount_money', 'date', 'timestamp', 'time_of_day', 'ordinal', 'special'}
+
+text = ' zum 1. mal, zum 2. und verkauft!'
+normalized_text = GermanTransliterate(transliterate_ops=ops).transliterate(text)
+print(normalized_text)
+sys.exit(0)
 
 if __name__ == "__main__":
     # execute default usage if run as script
