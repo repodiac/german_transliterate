@@ -9,7 +9,7 @@ setup(
    url='http://github.com/repodiac/german_transliterate',
    license='CC-BY-4.0 License',
    description='german_transliterate can clean and transliterate (i.e. normalize) German text including abbreviations, numbers, timestamps etc.',
-   long_description=open('README.md').read(),
+   long_description=open('README.md', encoding="UTF-8").read(),
    install_requires=[
        "num2words",
    ],
